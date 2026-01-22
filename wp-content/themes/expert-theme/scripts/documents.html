@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" href="images/icons/favicon_ico.jpg" type="image/jpg">
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <title>Документы | Первое экспертное бюро</title>
+</head>
+
+<body>
+  <header>
+    <div class="main_div_menu">
+      <a id="phone" href="tel:+73832079585">+7 (383) 207 95 85</a>
+      <a class="buttons_main_menu" href="index.html">О компании</a>
+      <a class="buttons_main_menu" href="services_and_prices.html">Услуги</a>
+      <a class="buttons_main_menu" href="documents.html">Документы</a>
+      <a class="buttons_main_menu" href="contacts.html">Контакты</a>
+      <a class="buttons_main_menu" href="https://novosibirsk.flamp.ru/firm/pervoe_ehkspertnoe_byuro_uchrezhdenie_nezavisimojj_ehkspertizy-70000001042868398" target="_blank">Отзывы</a>
+      <a class="buttons_main_menu" href="services_and_prices.html#career">Карьера</a>
+    </div>
+    <div id="main_div_logo">
+      <a href="index.html"><img class="logo" src="images/page_main/01_logo_peb_my.png"></a>
+    </div>
+  </header>
+
+  <div class="container_page">
+    <p id="text_documents">
+      Документы организации:
+    </p>
+
+    <div id="carousel" class="carousel">
+      <div class="gallery">
+        <ul id="slides_docs_1">
+          <script src="scripts/add-doc-1.js"></script>
+        </ul>
+      </div>
+      <a class="prev">❮</a>
+      <a class="next">❯</a>
+    </div>
+
+    <p id="text_documents">
+      Документы, подтверждающие <br> компетенцию наших специалистов:
+    </p>
+
+    <div id="carousel_2" class="carousel">
+      <div class="gallery">
+        <ul id="slides_docs_2">
+          <script src="scripts/add-doc-2.js"></script>
+        </ul>
+      </div>
+
+      <a class="prev">❮</a>
+      <a class="next">❯</a>
+
+    </div>
+
+    
+
+
+    <!-- The Modal/Lightbox -->
+    <div id="myModal" class="modal">
+      <span class="close cursor" onclick="closeModal()">&times;</span>
+      <div id="modal_content" class="modal_content">
+
+        <!-- Next/previous controls -->
+        <a class="prev" id="prev_button" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" id="next_button" onclick="plusSlides(1)">&#10095;</a>
+
+        <!-- Caption text -->
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div id="myModal_2" class="modal">
+      <span class="close cursor" onclick="closeModal_2()">&times;</span>
+      <div id="modal_content_2" class="modal_content">
+        <a class="prev" onclick="plusSlides_2(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides_2(1)">&#10095;</a>
+        <div class="caption-container">
+          <p id="caption_2"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer id="footer_contacts">
+    <div id="container_contacts">
+      <div>
+        <span class="title_contacts">
+          ПЕРВОЕ<br>
+          ЭКСПЕРТНОЕ БЮРО
+        </span><br>
+        <span id="title_contacts_condenced">
+          независимая судебная экспертиза<br>
+        </span><br>
+        <span style="font-size: 14px;">
+          г. Новосибирск,<br>
+          ул. Фрунзе, 14,<br>
+          офис 302<br>
+        </span><br>
+        <hr class="red_line">
+        <span style="font-size: 13px;">
+          ООО "Первое Экспертное Бюро"<br>
+          ИНН 5404141038
+        </span>
+      </div>
+      <div style="margin-left: 30px;">
+        <span class="title_contacts">
+          <br>РЕЖИМ РАБОТЫ
+        </span><br><br><br>
+        <span style="font-size: 14px;">
+          Пн-Чт с 10-00 до 17-00,<br>
+          Пт с 10-00 до 16-00<br>
+        </span>
+      </div>
+      <div style="text-align: right;">
+        <span class="title_contacts">
+          <br>КОНТАКТЫ
+        </span><br><br><br>
+        <div style="font-size: 18px; padding-top: 4px;">
+          <img class="icon" id="icon_phone_white" src="images/icons/icon_phone_white.png" alt="icon_phone_white">
+          <div class="footer_contacts_right"><a class="contacts_footer_link" href="tel:+73832079585">+7 (383) 207 95
+              85</a></div>
+          <img class="icon" id="icon_phone" src="images/icons/icon_phone_white.png" alt="icon_phone_white">
+          <img class="icon" id="icon_telegram" src="images/icons/icon_telegram_white.png" alt="icon_telegram_white">
+          <img class="icon" id="icon_whatsapp" src="images/icons/icon_whatsapp_white.png" alt="icon_whatsapp_white">
+          <div class="footer_contacts_right"><a class="contacts_footer_link" href="tel:+79538959015">+7 (953) 895 90
+              15</a></div>
+          <img class="icon" id="icon_letter_white" src="images/icons/icon_letter_white.png" alt="icon_letter_white">
+          <div class="footer_contacts_right"><a class="contacts_footer_link" href="mailto:1expertnsk@bk.ru">email:
+              1expertnsk@bk.ru</a></div>
+        </div>
+      </div>
+    </div>
+    <a class="link_choice_footer" href="services_and_prices.html">
+      ВЫБРАТЬ ТИП ЭКСПЕРИЗЫ
+    </a>
+  </footer>
+
+
+  
+  <script defer type="text/javascript" src="scripts/doc-conf.js"></script>
+  <script type="text/javascript" src="scripts/modal-slider.js"></script>
+
+</body>
+
+</html>
