@@ -845,3 +845,65 @@ hr {
   width: 80vw;
   object-fit: contain;
 }
+
+/* Footer Widget Areas */
+.footer-column {
+  flex: 1;
+  min-width: 200px; /* Minimum width for each column */
+}
+
+.footer-widget {
+  margin-bottom: 20px;
+}
+
+.widget-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Footer Menu Styles */
+.footer-menu {
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Header Navigation Styles */
+.header-navigation {
+  display: flex;
+  align-items: center;
+}
+
+.header-navigation a {
+  text-decoration: none;
+  line-height: 36px;
+  align-self: center;
+  color: #696969;
+  padding: 0 12px;
+  transition-property: background-color;
+  transition: 0.2s linear;
+}
+
+.header-navigation a:hover {
+  background-color: #E21C21;
+  color: #ffffff;
+}
