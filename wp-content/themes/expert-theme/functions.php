@@ -9,6 +9,18 @@ function expert_theme_setup() {
     // Register navigation menus
     register_nav_menus(array(
         'primary' => 'Primary Menu',
+        'footer' => 'Footer Menu',
+    ));
+    
+    // Register widget areas
+    register_sidebar(array(
+        'name' => 'Footer Widgets',
+        'id' => 'footer-widgets',
+        'description' => 'Widgets displayed in the footer area',
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
     ));
 }
 add_action('after_setup_theme', 'expert_theme_setup');
