@@ -153,12 +153,12 @@ function expertnsk_customize_register( $wp_customize ) {
 	) );
 	
 	// Email
-	$wp_customize->add_setting( 'expertnsk_email', array(
+	$wp_customize->add_setting( 'expertnsk_contact_email', array(
 		'default'           => '1expertnsk@bk.ru',
 		'sanitize_callback' => 'sanitize_email',
 	) );
 	
-	$wp_customize->add_control( 'expertnsk_email', array(
+	$wp_customize->add_control( 'expertnsk_contact_email', array(
 		'label'   => __( 'Email', '1expertnsk' ),
 		'section' => 'expertnsk_contacts',
 		'type'    => 'email',
@@ -263,7 +263,7 @@ function expertnsk_get_contact_info() {
 	return array(
 		'phone_1'    => get_theme_mod( 'expertnsk_phone_1', '+7 (383) 207 95 85' ),
 		'phone_2'    => get_theme_mod( 'expertnsk_phone_2', '+7 (953) 895 90 15' ),
-		'email'      => get_theme_mod( 'expertnsk_email', '1expertnsk@bk.ru' ),
+		'email'      => get_theme_mod( 'expertnsk_contact_email', '1expertnsk@bk.ru' ),
 		'address'    => get_theme_mod( 'expertnsk_address', 'г. Новосибирск, ул. Фрунзе, 14, офис 302' ),
 		'work_hours' => get_theme_mod( 'expertnsk_work_hours', 'Пн-Чт с 9-00 до 18-00, Пт с 9-00 до 17-00' ),
 		'inn'        => get_theme_mod( 'expertnsk_inn', 'ИНН 5404141038' ),
@@ -368,3 +368,22 @@ function expertnsk_auto_add_pages_to_menu( $post_id ) {
 	}
 }
 add_action( 'save_post_page', 'expertnsk_auto_add_pages_to_menu' );
+
+/**
+ * Принудительная установка значений настроек темы (для отладки)
+ */
+function expertnsk_debug_theme_mods() {
+	// Для отладки - принудительно установим значения
+	$debug_values = array(
+		'expertnsk_contact_email' => 'test@test.com',
+		'expertnsk_telegram'      => 'https://t.me/test',
+	);
+
+	foreach ( $debug_values as $mod_name => $value ) {
+		$current = get_theme_mod( $mod_name );
+		if ( $current === false || $current === '' ) {
+			set_theme_mod( $mod_name, $value );
+		}
+	}
+}
+add_action( 'init', 'expertnsk_debug_theme_mods' );
