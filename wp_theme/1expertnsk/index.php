@@ -7,7 +7,7 @@
 
 get_header(); ?>
 
-<main class="main-content">
+<main class="main-content container_page">
   <?php if ( have_posts() ) : ?>
     <?php while ( have_posts() ) : the_post(); ?>
       <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

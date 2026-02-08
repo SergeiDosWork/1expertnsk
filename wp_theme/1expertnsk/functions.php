@@ -166,8 +166,8 @@ function expertnsk_customize_register( $wp_customize ) {
 	
 	// Адрес
 	$wp_customize->add_setting( 'expertnsk_address', array(
-		'default'           => 'г. Новосибирск, ул. Фрунзе, 14, офис 302',
-		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => "г. Новосибирск, ул. Фрунзе, 14, офис 302\n",
+		'sanitize_callback' => 'sanitize_textarea_field',
 	) );
 	
 	$wp_customize->add_control( 'expertnsk_address', array(
@@ -178,8 +178,8 @@ function expertnsk_customize_register( $wp_customize ) {
 	
 	// Режим работы
 	$wp_customize->add_setting( 'expertnsk_work_hours', array(
-		'default'           => 'Пн-Чт с 9-00 до 18-00, Пт с 9-00 до 17-00',
-		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => "Пн-Чт с 9-00 до 18-00\nПт с 9-00 до 17-00",
+		'sanitize_callback' => 'sanitize_textarea_field',
 	) );
 	
 	$wp_customize->add_control( 'expertnsk_work_hours', array(
@@ -293,7 +293,7 @@ function expertnsk_format_email_link( $email ) {
  */
 function expertnsk_nav_menu_css_class( $classes, $item, $args, $depth ) {
 	if ( 'primary' === $args->theme_location ) {
-		$classes[] = 'menu-item';
+		$classes[] = 'buttons_main_menu';
 	}
 	return $classes;
 }
@@ -304,11 +304,39 @@ add_filter( 'nav_menu_css_class', 'expertnsk_nav_menu_css_class', 10, 4 );
  */
 function expertnsk_nav_menu_link_attributes( $atts, $item, $args, $depth ) {
 	if ( 'primary' === $args->theme_location ) {
-		$atts['class'] = 'menu-item';
+		$atts['class'] = 'buttons_main_menu';
 	}
 	return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'expertnsk_nav_menu_link_attributes', 10, 4 );
+
+/**
+ * Кастомный walker для вывода меню без li обёрток
+ */
+class ExpertnsK_Menu_Walker {
+	private $items = array();
+	
+	public function walk( $items, $depth = 0 ) {
+		$this->items = $items;
+		$output = '';
+		
+		foreach ( $items as $item ) {
+			// Добавляем класс напрямую
+			$class = 'buttons_main_menu';
+
+			// Пропускаем черновики
+			if ( 'draft' === get_post_status( $item->object_id ) ) {
+				continue;
+			}
+
+			$output .= '<a href="' . esc_url( $item->url ) . '" class="' . esc_attr( $class ) . '">';
+			$output .= $item->title;
+			$output .= '</a>';
+		}
+		
+		return $output;
+	}
+}
 
 /**
  * Добавление поддержки логотипа через Customizer
@@ -386,4 +414,24 @@ function expertnsk_debug_theme_mods() {
 		}
 	}
 }
-add_action( 'init', 'expertnsk_debug_theme_mods' );
+// add_action( 'init', 'expertnsk_debug_theme_mods' );
+
+/**
+ * Принудительная установка значений настроек темы для адреса, ИНН и режима работы
+ */
+function expertnsk_init_theme_mods() {
+	$settings = array(
+		'expertnsk_address',
+		'expertnsk_inn',
+		'expertnsk_work_hours',
+	);
+
+	foreach ( $settings as $mod_name ) {
+		$current = get_theme_mod( $mod_name );
+		if ( $current === false || $current === '' ) {
+			// Установим пустую строку вместо значения по умолчанию
+			set_theme_mod( $mod_name, '' );
+		}
+	}
+}
+add_action( 'init', 'expertnsk_init_theme_mods' );

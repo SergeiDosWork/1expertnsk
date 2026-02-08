@@ -51,25 +51,30 @@ a {
 }
 
 /* Шапка сайта */
-.site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #ffffff;
-    box-shadow: 0.00px 1.00px 4px 0px rgba(0, 0, 0, 0.6);
-}
-
-.main-nav {
+.main_div_menu {
+    z-index: 2;
     display: flex;
+    background-color: #ffffff;
     justify-content: center;
-    align-items: center;
+    box-shadow: 0.00px 1.00px 4px 0px rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
     height: 70px;
     min-width: max-content;
 }
 
-.phone-header {
+/* Корректировка для админ-бара WordPress */
+body.admin-bar .main_div_menu {
+    top: 32px;
+}
+
+body.admin-bar {
+    margin-top: 0;
+}
+
+#phone {
     text-decoration: none;
     line-height: 65px;
     padding: 2px 50px 2px 12px;
@@ -77,31 +82,33 @@ a {
     color: #3470C9;
 }
 
-.main-menu {
-    display: flex;
-    list-style: none;
-    gap: 12px; /* Добавлено для отступов между пунктами меню, чтобы избежать избыточных padding/margin на li */
-}
-
-.main-menu li {
-    display: inline-block;
-}
-
-.menu-item { /* Для ссылок в меню */
+.buttons_main_menu {
     text-decoration: none;
     line-height: 36px;
     align-self: center;
     color: #696969;
     padding: 0 12px;
-    transition: background-color 0.2s linear;
+    transition-property: background-color;
+    transition: 0.2s linear;
 }
 
-.menu-item:hover {
+.buttons_main_menu:hover {
     background-color: #E21C21;
     color: #ffffff;
 }
 
-.logo-section {
+.main-menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu .buttons_main_menu {
+    margin: 0;
+}
+
+#main_div_logo {
+    left: 0%;
     width: 100%;
     text-align: center;
     margin-top: 85px;
@@ -116,7 +123,7 @@ a {
 
 /* Основной контент */
 .main-content {
-    margin-top: 275px; /* Учитываем высоту шапки и логотипа */
+    margin-top: 275px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -374,32 +381,45 @@ a {
 }
 
 /* Подвал */
-.site-footer {
+#footer_contacts {
     color: #fff;
     background-color: #101321;
     width: 100%;
-    padding: 28px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0 50px 0;
 }
 
-.footer-container {
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 0 28px;
+#container_contacts {
     display: flex;
+    padding: 28px 28px 0 28px;
     justify-content: space-between;
+    width: 980px;
+    margin-bottom: 30px;
 }
 
 .footer-column {
-    flex: 1;
+    width: 260px;
 }
 
-.footer-title {
+.footer-column:nth-child(2) {
+    margin-left: 30px;
+    width: 180px;
+}
+
+.footer-column.footer-contacts {
+    text-align: right;
+    width: 300px;
+}
+
+.title_contacts {
     font-weight: bold;
     font-size: 20px;
     font-family: 'Open Sans', sans-serif;
 }
 
-.footer-subtitle {
+#title_contacts_condenced {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 14px;
     letter-spacing: 2px;
@@ -407,48 +427,80 @@ a {
 
 .footer-text {
     font-size: 14px;
-    line-height: 1.6;
+    white-space: pre-line;
 }
 
-.footer-contacts {
-    text-align: right;
+.footer-inn {
+    font-size: 13px;
 }
 
-.contact-item {
+.red_line {
+    height: 1px;
+    width: 200px;
+    border: none;
+    margin-left: 0px;
+    color: red;
+    background-color: red;
+    display: block;
+}
+
+.footer-contacts-text {
     font-size: 18px;
     padding-top: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    overflow: hidden;
+    float: right;
 }
 
-.contact-icon {
+.footer-contacts-text .icon {
+    float: left;
     height: 20px;
     width: 20px;
 }
 
-.contact-link {
+.contacts_footer_link {
     text-decoration: none;
     color: #ffffff;
 }
 
-.footer-button {
+.footer_contacts_right {
+    float: right;
+}
+
+/* Иконки в контактах - позиционирование как в оригинале */
+#icon_phone_white {
+    margin: 3px 3px 0 29px;
+}
+
+#icon_phone {
+    margin: 3px 3px 0 -23px;
+}
+
+#icon_telegram {
+    margin: 3px 0 0 3px;
+}
+
+#icon_whatsapp {
+    margin: 3px 5px 0 6px;
+}
+
+#icon_letter_white {
+    height: 17px;
+    margin: 6px 0 0 -42px;
+}
+
+.link_choice_footer {
     font-size: 16px;
     color: #ffffff;
     text-decoration: none;
     padding: 8px 35px 7px 35px;
     border: 2px solid #E21C21;
-    position: relative;
-    top: -58px;
-    margin-left: 45px;
-    height: fit-content;
-    width: fit-content;
+    margin-top: 20px;
     transition: background 400ms ease 0s, border-color 400ms ease 0s;
     opacity: 0;
-    animation: fadeIn 2.5s forwards; /* Используем fadeIn */
+    animation: fadeIn 2.5s forwards;
 }
 
-.footer-button:hover {
+.link_choice_footer:hover {
     background-color: #ffffff;
     border-color: #ffffff;
     color: #E21C21;
@@ -606,26 +658,39 @@ a {
     .main-content {
         min-width: auto;
     }
-    
+
     .cooperation-title {
         min-width: auto;
     }
-    
-    .footer-container {
+
+    #container_contacts {
         flex-direction: column;
         gap: 30px;
     }
-    
+
     .footer-column {
         text-align: center;
+        width: 100%;
+        margin-left: 0 !important;
     }
-    
+
     .footer-contacts {
         text-align: center;
     }
-    
-    .contact-item {
-        justify-content: center;
+
+    .footer_contacts_right {
+        float: none;
+        display: inline-block;
+    }
+
+    .footer-contacts-text {
+        text-align: center;
+    }
+
+    .footer-contacts-text .icon {
+        float: none;
+        display: inline-block;
+        vertical-align: middle;
     }
 }
 
@@ -634,66 +699,85 @@ a {
         font-size: 32px;
         top: 150px;
     }
-    
+
     .about-text, .staff-text {
         white-space: normal;
         font-size: 16px;
     }
-    
+
     .cooperation-grid {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .cooperation-column {
         width: 100%;
         max-width: 490px;
         margin-bottom: 20px;
     }
-    
+
     .services-grid {
         justify-content: center;
     }
-    
+
     .contacts-container {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .map-container {
         margin: 30px 0;
         width: 100%;
     }
+
+    #footer_contacts {
+        height: auto;
+        padding-bottom: 30px;
+    }
 }
 
 @media (max-width: 480px) {
-    .main-nav {
-        flex-direction: column;
+    .main_div_menu {
+        flex-wrap: wrap;
         height: auto;
         padding: 10px 0;
+        justify-content: center;
     }
-    
-    .phone-header {
-        margin-bottom: 10px;
-    }
-    
+
     .main-menu {
         flex-wrap: wrap;
         justify-content: center;
+        width: 100%;
     }
-    
+
+    .main-menu .buttons_main_menu {
+        margin: 5px;
+    }
+
+    #phone {
+        display: block;
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
     .logo {
         width: 300px;
         height: auto;
     }
-    
+
     .hero-title {
         font-size: 24px;
         top: 100px;
     }
-    
-    .hero-button, .bottom-banner-button, .footer-button {
+
+    .hero-button, .bottom-banner-button, .link_choice_footer {
         padding: 8px 20px;
         font-size: 14px;
+    }
+
+    #main_div_logo {
+        margin-top: 140px;
     }
 }

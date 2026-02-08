@@ -30,6 +30,7 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress_password
       WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
     volumes:
       - ./wp_theme/1expertnsk:/var/www/html/wp-content/themes/1expertnsk
     depends_on:

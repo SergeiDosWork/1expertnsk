@@ -7,37 +7,48 @@
 
 ?>
 
-<footer class="site-footer">
-  <div class="footer-container">
-    <!-- DEBUG: <?php echo 'EMAIL: ' . get_theme_mod('expertnsk_contact_email', 'DEFAULT'); ?> | TELEGRAM: <?php echo get_theme_mod('expertnsk_telegram', 'DEFAULT'); ?> -->
+<footer id="footer_contacts">
+  <div id="container_contacts">
     <div class="footer-column">
       <?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
         <?php dynamic_sidebar( 'footer-1' ); ?>
       <?php else : ?>
-        <h3 class="footer-title">ПЕРВОЕ<br>ЭКСПЕРТНОЕ БЮРО</h3>
-        <span class="footer-subtitle">независимая судебная экспертиза</span>
-        <div class="footer-text">
+        <span class="title_contacts">
+          ПЕРВОЕ<br>
+          ЭКСПЕРТНОЕ БЮРО
+        </span><br>
+        <span id="title_contacts_condenced">
+          независимая судебная экспертиза<br>
+        </span><br>
+        <span class="footer-text">
           <?php
-          $address = get_theme_mod( 'expertnsk_address', 'г. Новосибирск, ул. Фрунзе, 14, офис 302' );
-          echo nl2br( esc_html( $address ) );
+          $address = get_theme_mod( 'expertnsk_address', "г. Новосибирск, ул. Фрунзе, 14, офис 302" );
+          $address = str_replace( "\n", "<br>", $address );
+          echo $address;
           ?>
-        </div>
+        </span><br>
         <hr class="red_line">
-        <div class="footer-text">
+        <span class="footer-text footer-inn">
           ООО "Первое Экспертное Бюро"<br>
           <?php echo esc_html( get_theme_mod( 'expertnsk_inn', 'ИНН 5404141038' ) ); ?>
-        </div>
+        </span>
       <?php endif; ?>
     </div>
 
-    <div class="footer-column">
+    <div class="footer-column footer-work-hours">
       <?php if ( is_active_sidebar( 'footer-2' ) ) : ?>
         <?php dynamic_sidebar( 'footer-2' ); ?>
       <?php else : ?>
-        <h3 class="footer-title">РЕЖИМ РАБОТЫ</h3>
-        <div class="footer-text">
-          <?php echo nl2br( esc_html( get_theme_mod( 'expertnsk_work_hours', 'Пн-Чт с 9-00 до 18-00, Пт с 9-00 до 17-00' ) ) ); ?>
-        </div>
+        <span class="title_contacts">
+          <br>РЕЖИМ РАБОТЫ
+        </span><br><br><br>
+        <span class="footer-text">
+          <?php
+          $work_hours = get_theme_mod( 'expertnsk_work_hours', 'Пн-Чт с 9-00 до 18-00, Пт с 9-00 до 17-00' );
+          $work_hours = str_replace( "\n", "<br>", $work_hours );
+          echo $work_hours;
+          ?>
+        </span>
       <?php endif; ?>
     </div>
 
@@ -45,60 +56,46 @@
       <?php if ( is_active_sidebar( 'footer-3' ) ) : ?>
         <?php dynamic_sidebar( 'footer-3' ); ?>
       <?php else : ?>
-        <h3 class="footer-title">КОНТАКТЫ</h3>
-        <div class="contact-item">
-          <img class="contact-icon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_phone_white.png" alt="Телефон">
-          <?php if ( get_theme_mod( 'expertnsk_phone_1' ) ) : ?>
-            <a class="contact-link" href="<?php echo esc_url( expertnsk_format_phone_link( get_theme_mod( 'expertnsk_phone_1' ) ) ); ?>">
-              <?php echo esc_html( get_theme_mod( 'expertnsk_phone_1' ) ); ?>
-            </a>
-          <?php endif; ?>
-        </div>
-
-        <div class="contact-item">
-          <img class="contact-icon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_phone_white.png" alt="Телефон">
-          <?php if ( get_theme_mod( 'expertnsk_phone_2' ) ) : ?>
-            <a class="contact-link" href="<?php echo esc_url( expertnsk_format_phone_link( get_theme_mod( 'expertnsk_phone_2' ) ) ); ?>">
-              <?php echo esc_html( get_theme_mod( 'expertnsk_phone_2' ) ); ?>
-            </a>
-          <?php endif; ?>
-        </div>
-
-        <div class="contact-item">
-          <img class="contact-icon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_letter_white.png" alt="Email">
-          <?php if ( get_theme_mod( 'expertnsk_contact_email' ) ) : ?>
-            <a class="contact-link" href="<?php echo esc_url( expertnsk_format_email_link( get_theme_mod( 'expertnsk_contact_email' ) ) ); ?>">
-              <?php echo esc_html( get_theme_mod( 'expertnsk_contact_email' ) ); ?>
-            </a>
-          <?php endif; ?>
-        </div>
-
-        <div class="contact-item">
-          <img class="contact-icon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_whatsapp_white.png" alt="WhatsApp">
-          <?php if ( get_theme_mod( 'expertnsk_whatsapp' ) ) : ?>
-            <a class="contact-link" href="<?php echo esc_url( get_theme_mod( 'expertnsk_whatsapp' ) ); ?>" target="_blank">
-              WhatsApp
-            </a>
-          <?php endif; ?>
-        </div>
-
-        <div class="contact-item">
-          <img class="contact-icon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_telegram_white.png" alt="Telegram">
-          <?php if ( get_theme_mod( 'expertnsk_telegram' ) ) : ?>
-            <a class="contact-link" href="<?php echo esc_url( get_theme_mod( 'expertnsk_telegram' ) ); ?>" target="_blank">
-              Telegram
-            </a>
-          <?php endif; ?>
+        <span class="title_contacts">
+          <br>КОНТАКТЫ
+        </span><br><br><br>
+        <div class="footer-contacts-text">
+          
+          <div class="footer_contacts_right">
+            <img class="icon" id="icon_phone_white" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_phone_white.png" alt="Телефон">
+            <?php if ( get_theme_mod( 'expertnsk_phone_1' ) ) : ?>
+              <a class="contacts_footer_link" href="<?php echo esc_url( expertnsk_format_phone_link( get_theme_mod( 'expertnsk_phone_1' ) ) ); ?>">
+                <?php echo esc_html( get_theme_mod( 'expertnsk_phone_1' ) ); ?>
+              </a>
+            <?php endif; ?>
+          </div>
+          <div class="footer_contacts_right">
+            <img class="icon" id="icon_phone" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_phone_white.png" alt="Телефон">
+            <img class="icon" id="icon_telegram" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_telegram_white.png" alt="Telegram">
+            <img class="icon" id="icon_whatsapp" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_whatsapp_white.png" alt="WhatsApp">
+            <?php if ( get_theme_mod( 'expertnsk_phone_2' ) ) : ?>
+              <a class="contacts_footer_link" href="<?php echo esc_url( expertnsk_format_phone_link( get_theme_mod( 'expertnsk_phone_2' ) ) ); ?>">
+                <?php echo esc_html( get_theme_mod( 'expertnsk_phone_2' ) ); ?>
+              </a>
+            <?php endif; ?>
+          </div>
+          <div class="footer_contacts_right">
+            <img class="icon" id="icon_letter_white" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/icons/icon_letter_white.png" alt="Email">
+            <?php if ( get_theme_mod( 'expertnsk_contact_email' ) ) : ?>
+              <a class="contacts_footer_link" href="<?php echo esc_url( expertnsk_format_email_link( get_theme_mod( 'expertnsk_contact_email' ) ) ); ?>">
+                email: <?php echo esc_html( get_theme_mod( 'expertnsk_contact_email' ) ); ?>
+              </a>
+            <?php endif; ?>
+          </div>
         </div>
       <?php endif; ?>
     </div>
   </div>
   
   <?php
-  // Получаем ссылку на отзывы из настроек темы
   $reviews_link = get_theme_mod( 'expertnsk_reviews', 'https://novosibirsk.flamp.ru/firm/pervoe_ehkspertnoe_byuro_uchrezhdenie_nezavisimojj_ehkspertizy-70000001042868398' );
   ?>
-  <a class="footer-button" href="<?php echo esc_url( $reviews_link ); ?>" target="_blank">
+  <a class="link_choice_footer" href="<?php echo esc_url( $reviews_link ); ?>" target="_blank">
     ВЫБРАТЬ ТИП ЭКСПЕРТИЗЫ
   </a>
 </footer>
