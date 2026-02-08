@@ -1,0 +1,699 @@
+/*
+Theme Name: 1expertnsk
+Theme URI: https://example.com/
+Author: Koda
+Author URI: https://example.com/
+Description: Тема WordPress, созданная на основе HTML-саймы 1expertnsk.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.gnu.org/licenses/gpl-2.0.html
+Text Domain: 1expertnsk
+*/
+
+/* Reset и базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Open Sans', sans-serif; /* В WordPress мы будем использовать Google Fonts API */
+    min-width: fit-content;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -moz-crisp-edges;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.container { /* Это будет общим классом для центрирования контента */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Шапка сайта */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0.00px 1.00px 4px 0px rgba(0, 0, 0, 0.6);
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    min-width: max-content;
+}
+
+.phone-header {
+    text-decoration: none;
+    line-height: 65px;
+    padding: 2px 50px 2px 12px;
+    font-size: 23px;
+    color: #3470C9;
+}
+
+.main-menu {
+    display: flex;
+    list-style: none;
+    gap: 12px; /* Добавлено для отступов между пунктами меню, чтобы избежать избыточных padding/margin на li */
+}
+
+.main-menu li {
+    display: inline-block;
+}
+
+.menu-item { /* Для ссылок в меню */
+    text-decoration: none;
+    line-height: 36px;
+    align-self: center;
+    color: #696969;
+    padding: 0 12px;
+    transition: background-color 0.2s linear;
+}
+
+.menu-item:hover {
+    background-color: #E21C21;
+    color: #ffffff;
+}
+
+.logo-section {
+    width: 100%;
+    text-align: center;
+    margin-top: 85px;
+    margin-bottom: 8px;
+    background-color: #ffffff;
+}
+
+.logo {
+    width: 498px;
+    height: 172px;
+}
+
+/* Основной контент */
+.main-content {
+    margin-top: 275px; /* Учитываем высоту шапки и логотипа */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-width: 980px;
+}
+
+/* Главный баннер */
+.hero-section {
+    width: 100%;
+    height: 470px;
+    text-align: center;
+    background-image: url(images/page_main/02_main_home.jpg); /* В WordPress этот путь будет динамическим */
+    background-size: cover;
+    background-position-y: bottom;
+    position: relative;
+}
+
+.hero-title {
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: bold;
+    position: relative;
+    top: 230px;
+    margin-bottom: 20px; /* Добавлено для отступа от кнопки */
+}
+
+.hero-button {
+    font-size: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 35px 7px 35px;
+    border: 2px solid #E21C21;
+    transition: background 400ms ease 0s, border-color 400ms ease 0s;
+    opacity: 0;
+    animation: fadeIn 2.5s forwards; /* Используем fadeIn вместо ani */
+    display: inline-block; /* Для правильного отображения padding */
+    margin-top: 20px; /* Отступ от заголовка */
+}
+
+.hero-button:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #E21C21;
+}
+
+/* О компании */
+.about-section {
+    width: 100%;
+    height: 300px;
+    text-align: center;
+    padding: 55px 0 45px 0;
+}
+
+.about-text {
+    color: #3470C9;
+    font-size: 20px;
+    line-height: 26px;
+    white-space: nowrap;
+    margin-bottom: 45px;
+}
+
+.free-consultation {
+    background-color: #E21C21;
+    font-size: 19px;
+    color: #ffffff;
+    padding: 7px 50px 8px 50px;
+    margin: 0 auto;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.free-consultation a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Сотрудничество */
+.cooperation-section {
+    width: 100%;
+    text-align: center;
+    background-color: #FAFAFA;
+    padding: 35px 0;
+}
+
+.cooperation-title {
+    min-width: 980px;
+    margin: 35px 0;
+}
+
+.cooperation-subtitle {
+    color: #3470C9;
+    font-size: 19px;
+}
+
+.cooperation-highlight {
+    color: #db433b;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.cooperation-grid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-width: max-content;
+}
+
+.cooperation-column {
+    width: 490px;
+    height: 338px;
+}
+
+.cooperation-left {
+    background-color: #ffffff;
+}
+
+.cooperation-right {
+    background-color: #ebf4fc;
+}
+
+.cooperation-number {
+    font-family: 'Roboto', sans-serif;
+    background-color: #5c85c3;
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 4px;
+    padding: 3px 8px 5px 8px;
+}
+
+.cooperation-step {
+    color: #3c6eba;
+    font-size: 16px;
+    text-align: left;
+    padding-left: 7px;
+}
+
+.contact-info {
+    margin-top: 20px;
+}
+
+.contact-phone-title {
+    color: #457dd1;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.contact-phone {
+    color: #457dd1;
+    font-size: 21px;
+}
+
+.contact-email-title {
+    color: #db433b;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.contact-email {
+    color: #457dd1;
+    font-size: 21px;
+    margin-top: 5px;
+}
+
+.contact-timeline {
+    margin-top: 20px;
+}
+
+.timeline-day {
+    color: #457dd1;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.timeline-response {
+    color: #db433b;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.timeline-details {
+    color: #457dd1;
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* Специалисты */
+.staff-section {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding: 55px 0 48px 0; /* Добавлены padding сверху и снизу */
+}
+
+.staff-icon {
+    margin: 3.5em 1em 0 0;
+    height: 6em;
+}
+
+.staff-text {
+    color: #457dd1;
+    font-size: 16px;
+    font-style: italic;
+    text-align: left;
+    line-height: 26px; /* Добавлено отсутствующее свойство */
+    white-space: nowrap;
+    margin-top: 55px; /* Убрано margin-bottom */
+}
+
+/* Нижний баннер */
+.bottom-banner {
+    width: 100%;
+    height: 225px;
+    text-align: center;
+    background-image: url(images/page_main/02_main_home.jpg); /* В WordPress этот путь будет динамическим */
+    background-size: cover;
+    background-position-y: bottom;
+    white-space: nowrap;
+    position: relative; /* Добавлено, чтобы дочерние элементы с position: relative; могли позиционироваться */
+}
+
+.bottom-banner-text {
+    background-color: rgba(226, 28, 33, 0.9);
+    font-size: 19px;
+    color: #ffffff;
+    padding: 7px 25px 8px 25px;
+    position: relative;
+    top: 98px;
+    display: inline-block; /* Для правильного отображения padding */
+}
+
+.bottom-banner-button {
+    font-size: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 35px 7px 35px;
+    border: 2px solid #E21C21;
+    position: relative;
+    top: 98px;
+    transition: background 400ms ease 0s, border-color 400ms ease 0s;
+    opacity: 0;
+    animation: fadeIn 2.5s forwards; /* Используем fadeIn */
+}
+
+.bottom-banner-button:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #E21C21;
+}
+
+/* Подвал */
+.site-footer {
+    color: #fff;
+    background-color: #101321;
+    width: 100%;
+    padding: 28px 0;
+}
+
+.footer-container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex: 1;
+}
+
+.footer-title {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.footer-subtitle {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.footer-text {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-contacts {
+    text-align: right;
+}
+
+.contact-item {
+    font-size: 18px;
+    padding-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.contact-link {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.footer-button {
+    font-size: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 35px 7px 35px;
+    border: 2px solid #E21C21;
+    position: relative;
+    top: -58px;
+    margin-left: 45px;
+    height: fit-content;
+    width: fit-content;
+    transition: background 400ms ease 0s, border-color 400ms ease 0s;
+    opacity: 0;
+    animation: fadeIn 2.5s forwards; /* Используем fadeIn */
+}
+
+.footer-button:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #E21C21;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes expandWidth {
+    0% {
+        align-content: center;
+        width: 0;
+    }
+    100% {
+        align-content: center;
+        width: 370px;
+    }
+}
+
+/* Услуги */
+.services-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.services-title {
+    text-align: center;
+    font-size: 20px;
+    color: #3470C9;
+    margin-bottom: 40px;
+}
+
+.services-grid {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.service-card {
+    background-color: #ffffff;
+    margin-bottom: 40px;
+    width: 260px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 45%);
+    padding: 20px;
+}
+
+.service-image {
+    width: 260px;
+    height: 185px;
+    object-fit: cover;
+}
+
+.service-name {
+    text-align: left;
+    padding-left: 12px;
+    color: #E21C21;
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+.service-description {
+    height: 210px;
+    text-align: left;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 14px;
+    color: #696969;
+    line-height: 1.4;
+}
+
+.service-separator {
+    height: 1px;
+    width: 240px;
+    border: none;
+    background-color: #696969;
+    color: #696969;
+    margin: 20px auto;
+}
+
+.service-button {
+    position: relative;
+    top: 35px;
+    text-decoration: none;
+    padding: 12px 40px;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #FE6060;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    transition: background-color 0.3s linear;
+    display: inline-block;
+}
+
+.service-button:hover {
+    background-color: #ffffff;
+    color: red;
+}
+
+/* Документы */
+.documents-section {
+    padding: 40px 0;
+    border-top: solid 4px #3470C9;
+}
+
+.documents-title {
+    text-align: center;
+    font-size: 20px;
+    color: #3470C9;
+    margin-bottom: 40px;
+}
+
+.document-carousel {
+    max-width: 980px;
+    margin: 0 auto 30px auto;
+    position: relative;
+}
+
+/* Контакты */
+.contacts-section {
+    padding: 40px 0;
+    border-top: solid 4px #3470C9;
+}
+
+.contacts-container {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.map-container {
+    margin: 30px 30px 40px 0;
+    background-color: aliceblue;
+    width: 600px;
+    height: 400px;
+}
+
+.contact-details {
+    align-self: center;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .main-content {
+        min-width: auto;
+    }
+    
+    .cooperation-title {
+        min-width: auto;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .footer-column {
+        text-align: center;
+    }
+    
+    .footer-contacts {
+        text-align: center;
+    }
+    
+    .contact-item {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 32px;
+        top: 150px;
+    }
+    
+    .about-text, .staff-text {
+        white-space: normal;
+        font-size: 16px;
+    }
+    
+    .cooperation-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cooperation-column {
+        width: 100%;
+        max-width: 490px;
+        margin-bottom: 20px;
+    }
+    
+    .services-grid {
+        justify-content: center;
+    }
+    
+    .contacts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .map-container {
+        margin: 30px 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+    }
+    
+    .phone-header {
+        margin-bottom: 10px;
+    }
+    
+    .main-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .logo {
+        width: 300px;
+        height: auto;
+    }
+    
+    .hero-title {
+        font-size: 24px;
+        top: 100px;
+    }
+    
+    .hero-button, .bottom-banner-button, .footer-button {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+}

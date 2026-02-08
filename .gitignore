@@ -1,2 +1,36 @@
 /html_sources/*
 .vscode/
+
+# Данные Docker (персистентные)
+mysql_data/
+wordpress_data/
+
+# Логи
+*.log
+docker/logs/
+
+
+# Резервные копии
+*.sql
+*.sql.gz
+backup_*.sql
+
+# Операционные системы
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Docker
+.docker/
+
+# Временные файлы
+tmp/
+temp/
+*.tmp
