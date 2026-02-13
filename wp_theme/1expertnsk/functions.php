@@ -19,6 +19,9 @@ function expertnsk_setup() {
 	// Включение поддержки миниатюр постов
 	add_theme_support( 'post-thumbnails' );
 	
+	// Добавление размера изображения для услуг
+	add_image_size( 'service-thumbnail', 260, 185, true );
+	
 	// Включение поддержки HTML5
 	add_theme_support( 'html5', array(
 		'search-form',
@@ -96,25 +99,171 @@ function expertnsk_widgets_init() {
 add_action( 'widgets_init', 'expertnsk_widgets_init' );
 
 /**
+ * Минимизация CSS
+ */
+function expertnsk_minify_css( $css ) {
+	// Заменяем относительные пути изображений на абсолютные
+	$template_uri = get_template_directory_uri();
+
+	// Заменяем url(images/...) на url(ABSPATH_TO_THEME/images/...)
+	$css = preg_replace(
+		'/url\((["\']?)images\//i',
+		'url($1' . $template_uri . '/images/',
+		$css
+	);
+
+	// Заменяем url(icons/...) на url(ABSPATH_TO_THEME/images/icons/)
+	$css = preg_replace(
+		'/url\((["\']?)icons\//i',
+		'url($1' . $template_uri . '/images/icons/',
+		$css
+	);
+
+	// Удаляем комментарии
+	$css = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css );
+
+	// Удаляем пробелы, табуляции и переносы строк
+	$css = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $css );
+
+	// Удаляем лишние пробелы
+	$css = preg_replace( '/\s+/', ' ', $css );
+
+	// Удаляем пробелы вокруг специальных символов
+	$css = preg_replace( '/\s*([{}:;,>+~])\s*/', '$1', $css );
+
+	// Удаляем последний символ ;
+	$css = trim( $css, ';' );
+
+	return trim( $css );
+}
+
+/**
+ * Получение минимизированного CSS с кешированием
+ */
+function expertnsk_get_minified_css_url() {
+	$css_file = get_stylesheet_directory() . '/style.css';
+	$cache_dir = get_stylesheet_directory() . '/cache';
+
+	// Создаем директорию кеша, если её нет
+	if ( ! file_exists( $cache_dir ) ) {
+		wp_mkdir_p( $cache_dir );
+	}
+	
+	// Получаем время модификации исходного файла
+	$css_mtime = filemtime( $css_file );
+
+	// Имя кешированного файла с версией
+	$cache_file = $cache_dir . '/style-' . $css_mtime . '.min.css';
+
+	// Если кеш существует и актуален, возвращаем его
+	if ( file_exists( $cache_file ) && filemtime( $cache_file ) >= $css_mtime ) {
+		return get_template_directory_uri() . '/cache/style-' . $css_mtime . '.min.css';
+	}
+
+	// Читаем исходный CSS
+	$css_content = file_get_contents( $css_file );
+
+	// Минимизируем CSS
+	$minified_css = expertnsk_minify_css( $css_content );
+
+	// Сохраняем минимизированный CSS
+	file_put_contents( $cache_file, $minified_css );
+
+	// Возвращаем URL кешированного файла
+	return get_template_directory_uri() . '/cache/style-' . $css_mtime . '.min.css';
+}
+
+/**
  * Подключение стилей и скриптов
  */
 function expertnsk_scripts() {
-	// Основной стиль темы
-	wp_enqueue_style( 'expertnsk-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ) );
-	
+	// Очистка кеша CSS при разработке (раскомментируйте для очистки)
+	$cache_dir = get_stylesheet_directory() . '/cache';
+	if ( file_exists( $cache_dir ) ) {
+		$files = glob( $cache_dir . '/*.css' );
+		foreach ( $files as $file ) {
+			unlink( $file );
+		}
+	}
+
+	// Основной стиль темы (минимизированный с уникальным именем)
+	$minified_css_url = expertnsk_get_minified_css_url();
+	$css_version = filemtime( get_stylesheet_directory() . '/style.css' );
+
+	wp_enqueue_style( 'expertnsk-style', $minified_css_url, array(), $css_version );
+
 	// Google Fonts
 	wp_enqueue_style( 'expertnsk-google-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Open+Sans+Condensed:wght@300;700&family=Roboto:wght@400;700&display=swap', array(), null );
-	
+
 	// Основной скрипт
-	wp_enqueue_script( 'expertnsk-script', get_template_directory_uri() . '/js/main.js', array(), wp_get_theme()->get( 'Version' ), true );
-	
+	wp_enqueue_script( 'expertnsk-script', get_template_directory_uri() . '/js/main.js', array(), time(), true );
+
 	// jQuery (включен по умолчанию в WordPress)
 	wp_enqueue_script( 'jquery' );
-	
+
 	// Комментарии (если включены)
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	// Inline скрипт для гарантированной инициализации мобильного меню
+	wp_add_inline_script( 'expertnsk-script', '
+		// Инициализация мобильного меню (fallback)
+		function initMobileMenuFallback() {
+			var toggle = document.getElementById("mobileMenuToggle");
+			var content = document.getElementById("mobileMenuContent");
+			var overlay = document.getElementById("mobileMenuOverlay");
+
+			if (toggle && content && overlay) {
+				toggle.addEventListener("click", function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					toggle.classList.toggle("active");
+					content.classList.toggle("active");
+					overlay.classList.toggle("active");
+
+					if (content.classList.contains("active")) {
+						document.body.style.overflow = "hidden";
+					} else {
+						document.body.style.overflow = "";
+					}
+				});
+
+				overlay.addEventListener("click", function() {
+					toggle.classList.remove("active");
+					content.classList.remove("active");
+					overlay.classList.remove("active");
+					document.body.style.overflow = "";
+				});
+
+				var menuLinks = content.querySelectorAll(".buttons_main_menu");
+				menuLinks.forEach(function(link) {
+					link.addEventListener("click", function() {
+						toggle.classList.remove("active");
+						content.classList.remove("active");
+						overlay.classList.remove("active");
+						document.body.style.overflow = "";
+					});
+				});
+
+				window.addEventListener("resize", function() {
+					if (window.innerWidth > 768) {
+						toggle.classList.remove("active");
+						content.classList.remove("active");
+						overlay.classList.remove("active");
+						document.body.style.overflow = "";
+					}
+				});
+			}
+		}
+
+		// Инициализация при загрузке DOM
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", initMobileMenuFallback);
+		} else {
+			initMobileMenuFallback();
+		}
+	' );
 }
 add_action( 'wp_enqueue_scripts', 'expertnsk_scripts' );
 
@@ -202,7 +351,7 @@ function expertnsk_customize_register( $wp_customize ) {
 	
 	// Секция социальных сетей
 	$wp_customize->add_section( 'expertnsk_social', array(
-		'title'    => __( 'Социальные сети', '1expertnsk' ),
+		'title'    => __( 'Настройка ссылок', '1expertnsk' ),
 		'priority' => 35,
 	) );
 	
@@ -213,7 +362,7 @@ function expertnsk_customize_register( $wp_customize ) {
 	) );
 	
 	$wp_customize->add_control( 'expertnsk_whatsapp', array(
-		'label'   => __( 'WhatsApp', '1expertnsk' ),
+		'label'   => __( 'Ссылка "Заказать"', '1expertnsk' ),
 		'section' => 'expertnsk_social',
 		'type'    => 'url',
 	) );
@@ -225,7 +374,7 @@ function expertnsk_customize_register( $wp_customize ) {
 	) );
 	
 	$wp_customize->add_control( 'expertnsk_telegram', array(
-		'label'   => __( 'Telegram', '1expertnsk' ),
+		'label'   => __( 'Ссылка Экспертиза', '1expertnsk' ),
 		'section' => 'expertnsk_social',
 		'type'    => 'url',
 	) );
@@ -435,3 +584,58 @@ function expertnsk_init_theme_mods() {
 	}
 }
 add_action( 'init', 'expertnsk_init_theme_mods' );
+
+/**
+ * Регистрация кастомного типа постов "Услуги" (Service)
+ */
+function expertnsk_register_service_post_type() {
+	$labels = array(
+		'name'                  => _x( 'Услуги', 'Post Type General Name', '1expertnsk' ),
+		'singular_name'         => _x( 'Услуга', 'Post Type Singular Name', '1expertnsk' ),
+		'menu_name'             => __( 'Услуги', '1expertnsk' ),
+		'name_admin_bar'        => __( 'Услуга', '1expertnsk' ),
+		'archives'              => __( 'Архив услуг', '1expertnsk' ),
+		'attributes'            => __( 'Атрибуты услуги', '1expertnsk' ),
+		'parent_item_colon'     => __( 'Родительская услуга:', '1expertnsk' ),
+		'all_items'             => __( 'Все услуги', '1expertnsk' ),
+		'add_new_item'          => __( 'Добавить новую услугу', '1expertnsk' ),
+		'add_new'               => __( 'Добавить новую', '1expertnsk' ),
+		'new_item'              => __( 'Новая услуга', '1expertnsk' ),
+		'edit_item'             => __( 'Редактировать услугу', '1expertnsk' ),
+		'update_item'           => __( 'Обновить услугу', '1expertnsk' ),
+		'view_item'             => __( 'Просмотреть услугу', '1expertnsk' ),
+		'view_items'            => __( 'Просмотреть услуги', '1expertnsk' ),
+		'search_items'          => __( 'Найти услугу', '1expertnsk' ),
+		'not_found'             => __( 'Услуги не найдены', '1expertnsk' ),
+		'not_found_in_trash'    => __( 'Услуги в корзине не найдены', '1expertnsk' ),
+		'featured_image'        => __( 'Изображение услуги', '1expertnsk' ),
+		'set_featured_image'    => __( 'Установить изображение услуги', '1expertnsk' ),
+		'remove_featured_image' => __( 'Удалить изображение услуги', '1expertnsk' ),
+		'use_featured_image'    => __( 'Использовать как изображение услуги', '1expertnsk' ),
+	);
+
+	$args = array(
+		'label'                 => __( 'Услуга', '1expertnsk' ),
+		'description'           => __( 'Услуги экспертизы', '1expertnsk' ),
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
+		'taxonomies'            => array(),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'menu_icon'             => 'dashicons-list-view',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => false,
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'post',
+		'show_in_rest'          => true,
+	);
+
+	register_post_type( 'service', $args );
+}
+add_action( 'init', 'expertnsk_register_service_post_type', 0 );

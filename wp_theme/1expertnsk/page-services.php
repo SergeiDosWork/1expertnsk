@@ -19,7 +19,9 @@ get_header(); ?>
         
         <!-- Секция услуг -->
         <section class="services-section">
-          <h2 class="services-title">Наши услуги</h2>
+          <header class="entry-header entry-header-980">
+              <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+          </header>
           <div class="services-grid">
             <!-- Пример карточки услуги -->
             <div class="service-card">

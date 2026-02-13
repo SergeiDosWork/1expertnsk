@@ -95,7 +95,7 @@
   <?php
   $reviews_link = get_theme_mod( 'expertnsk_reviews', 'https://novosibirsk.flamp.ru/firm/pervoe_ehkspertnoe_byuro_uchrezhdenie_nezavisimojj_ehkspertizy-70000001042868398' );
   ?>
-  <a class="link_choice_footer" href="<?php echo esc_url( $reviews_link ); ?>" target="_blank">
+  <a class="link_choice_footer" href="<?php echo esc_url( get_theme_mod( 'expertnsk_telegram', '/service' ) ); ?>" >
     ВЫБРАТЬ ТИП ЭКСПЕРТИЗЫ
   </a>
 </footer>
