@@ -527,12 +527,11 @@ body.admin-bar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 0 50px 0;
+    padding: 20px 0 10px 0;
 }
 
 #container_contacts {
     display: flex;
-    padding: 28px 28px 0 28px;
     justify-content: space-between;
     max-width: 980px;
     width: 100%;
@@ -568,7 +567,6 @@ body.admin-bar {
 
 .footer-text {
     font-size: 14px;
-    white-space: pre-line;
 }
 
 .footer-inn {
@@ -583,6 +581,7 @@ body.admin-bar {
     color: red;
     background-color: red;
     display: block;
+    margin-top: 30px;
 }
 
 .footer-contacts-text {
@@ -1329,6 +1328,7 @@ body.admin-bar {
 .entry-content-980 ol {
     color: #333;
     line-height: 1.6;
+    margin-top: 16px;
 }
 
 .entry-content-980 h2 {
@@ -1685,11 +1685,7 @@ body.admin-bar {
 
     /* Адаптивность для футера */
     #footer_contacts {
-        padding: 20px 0 30px 0;
-    }
-
-    #container_contacts {
-        padding: 20px 15px 0 15px;
+        padding: 20px 0 10px 0;
     }
 
     .footer-column {
